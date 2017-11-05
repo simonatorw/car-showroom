@@ -1,0 +1,7 @@
+<div *ngIf="car" class="carDetail">
+	<h3>{{car.name}}</h3>
+	<div>
+		<label>ID</label>{{car.id}}
+	</div>
+	<button class="actionButton" (click)="editDetail(car.id)">Edit</button>
+</div>

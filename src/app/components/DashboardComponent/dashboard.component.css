@@ -1,0 +1,15 @@
+.shelf {
+	padding: 0;
+	list-style-type: none;
+}
+.showcase {
+	display: inline-block;
+	background-color: lightblue;
+	padding-top: 70px;
+	margin-right: 6px;
+	width: 160px;
+	height: 160px;
+	box-sizing: border-box;
+	vertical-align: top;
+	text-align: center;
+}

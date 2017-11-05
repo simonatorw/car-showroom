@@ -1,0 +1,9 @@
+<h2>Edit {{car.name}}</h2>
+
+<div>
+	<label>ID</label>{{car.id}}
+</div>
+<div>
+	<label>Name</label><input [(ngModel)]="car.name" placeholder="Enter name">
+</div>
+<button class="actionButton" (click)="goBack()">Go Back</button>
