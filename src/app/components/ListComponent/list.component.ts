@@ -11,6 +11,9 @@ export class ListComponent implements OnInit {
 	title = 'Inventory';
 	list;
 	selectedCar;
+	car = {
+		name: ''
+	};
 	
 	constructor(private dataService: DataService) {}
 	
@@ -20,5 +23,12 @@ export class ListComponent implements OnInit {
 	
 	onSelect(car) {
 		this.selectedCar = car;
+	}
+	
+	addCar(car, e) {
+		e.preventDefault();
+		
+		this.dataService.addCar(car.name);
+		car.name = '';
 	}
 }

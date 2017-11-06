@@ -21,3 +21,9 @@ h3 {
 	font-size: 1rem;
 	padding: 3px 10px;
 }
+label {
+	margin-right: 6px;
+}
+.textBox {
+	padding: 3px;
+}
