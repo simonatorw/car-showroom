@@ -8,6 +8,7 @@ import { ListComponent } from './components/ListComponent/list.component';
 import { DetailComponent } from './components/DetailComponent/detail.component';
 import { EditComponent } from './components/EditComponent/edit.component';
 import { DataService } from './utils/data.service';
+import { TitleService } from './utils/title.service';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -25,6 +26,6 @@ import { AppRoutingModule } from './app-routing.module';
 		AppRoutingModule
 	],
 	bootstrap: [AppComponent],
-	providers: [DataService]  
+	providers: [DataService, TitleService]  
 })
 export class AppModule { }

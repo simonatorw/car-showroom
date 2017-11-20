@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Car } from './car';
+import { TitleService } from './title.service';
 
 @Injectable()
 export class DataService {
@@ -17,6 +18,8 @@ export class DataService {
 		{ id: 10, name: 'Dodge Challenger' }
 	];
 	ids = [];
+	
+	constructor(private titleService: TitleService) {}
 	
 	getList(): Car[] {
 		return this.carList;
@@ -36,6 +39,9 @@ export class DataService {
 			name
 		});
 		this.carList.sort((a, b) => a.id - b.id);
+	}
+	getTitle() {
+		return this.titleService.getTitle();
 	}
 }
 
