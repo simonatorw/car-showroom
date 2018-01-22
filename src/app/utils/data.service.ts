@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs/observable/of';
 
 import { Car } from './car';
 import { TitleService } from './title.service';
 
 @Injectable()
 export class DataService {
-	carList: Car[] = [
+	backupList: Car[] = [
 		{ id: 1, name: 'Porsche C4S' },
 		{ id: 2, name: 'Ferrari 458' },
 		{ id: 3, name: 'Lamborghini LP-560' },
@@ -17,12 +19,29 @@ export class DataService {
 		{ id: 9, name: 'Ford Mustang' },
 		{ id: 10, name: 'Dodge Challenger' }
 	];
+	carList: Car[] = [];
 	ids = [];
+	carsUrl = 'http://localhost:3000/cars';
 	
-	constructor(private titleService: TitleService) {}
+	constructor(
+		private titleService: TitleService,
+		private http: HttpClient) {}
 	
-	getList(): Car[] {
+	getAltList() {
+		this.carList = this.backupList;
+
 		return this.carList;
+	}
+	getList(): Observable<Car[]> {
+		if (this.carList.length) {
+			return of(this.carList);
+		} else {
+			const obs = this.http.get<Car[]>(this.carsUrl)
+		
+			obs.subscribe(data => this.carList = data);
+
+			return obs;
+		}
 	}
 	getCar(id): Promise<Car> {
 		return Promise.resolve(this.carList.find(car => car.id === id));

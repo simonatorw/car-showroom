@@ -18,7 +18,11 @@ export class ListComponent implements OnInit {
 	constructor(private dataService: DataService) {}
 	
 	ngOnInit() {
-		this.list = this.dataService.getList();
+		this.dataService.getList().subscribe(data => {
+			this.list = data;
+		}, err => {
+			this.list = this.dataService.getAltList();
+		});
 	}
 	
 	onSelect(car) {
