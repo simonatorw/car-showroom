@@ -4,6 +4,6 @@
 	<label>ID</label>{{car.id}}
 </div>
 <div>
-	<label>Name</label><input [(ngModel)]="car.name" placeholder="Enter name" class="textBox">
+	<label>Name</label><input [(ngModel)]="car.name" placeholder="Enter name" class="textBox" (change)="updateCar(car)">
 </div>
 <button class="actionButton" (click)="goBack()">Go Back</button>

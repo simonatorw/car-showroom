@@ -28,6 +28,10 @@ export class EditComponent implements OnInit {
 			.subscribe(car => this.car = car);
 	}
 
+	updateCar(car) {
+		this.dataService.putXhrCar(car._id, car.name);
+	}
+
 	goBack() {
 		this.location.back();
 	}

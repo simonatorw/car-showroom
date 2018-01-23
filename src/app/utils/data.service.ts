@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs/observable/of';
+import 'rxjs/add/operator/map';
 
 import { Car } from './car';
 import { TitleService } from './title.service';
@@ -25,42 +26,52 @@ export class DataService {
 	
 	constructor(
 		private titleService: TitleService,
-		private http: HttpClient) {}
+		private http: HttpClient) {
+
+		const obs = this.http.get<Car[]>(this.carsUrl)
 	
-	getAltList() {
-		this.carList = this.backupList;
-
-		return this.carList;
+		obs.subscribe(data => data.forEach(data => this.carList.push(data)), 
+			err => this.backupList.forEach(data => this.carList.push(data)));
 	}
-	getList(): Observable<Car[]> {
-		if (this.carList.length) {
-			return of(this.carList);
-		} else {
-			const obs = this.http.get<Car[]>(this.carsUrl)
-		
-			obs.subscribe(data => this.carList = data);
-
-			return obs;
-		}
+	postXhrCar(id, name) {
+		this.http.post(this.carsUrl, {
+			id,
+			name
+		}).subscribe();
+	}
+	deleteXhrCar(id) {
+		this.http.delete(`${this.carsUrl}/${id}`).subscribe();
+	}
+	putXhrCar(id, name) {
+		this.http.put(`${this.carsUrl}/${id}`, {
+			name
+		}).subscribe();
+	}	
+	getList() {
+		return this.carList;
 	}
 	getCar(id): Promise<Car> {
 		return Promise.resolve(this.carList.find(car => car.id === id));
 	}
 	deleteCar(id): void {
 		const indx = this.carList.findIndex(item => item.id === id);
-		
+		const dbIndx = this.carList[indx]._id;
+
 		this.ids.push(this.carList[indx].id);
 		this.carList.splice(indx, 1);
+		this.deleteXhrCar(dbIndx);
 	}
 	addCar(name): void {
+		const id = this.ids.length ? this.ids.pop() : this.carList.length + 1;
+
 		this.carList.push({
-			id: this.ids.length ? this.ids.pop() : this.carList.length + 1,
+			id,
 			name
 		});
 		this.carList.sort((a, b) => a.id - b.id);
+		this.postXhrCar(id, name);
 	}
 	getTitle() {
 		return this.titleService.getTitle();
 	}
 }
-

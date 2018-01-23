@@ -18,11 +18,7 @@ export class ListComponent implements OnInit {
 	constructor(private dataService: DataService) {}
 	
 	ngOnInit() {
-		this.dataService.getList().subscribe(data => {
-			this.list = data;
-		}, err => {
-			this.list = this.dataService.getAltList();
-		});
+		this.list = this.dataService.getList();
 	}
 	
 	onSelect(car) {
@@ -31,7 +27,7 @@ export class ListComponent implements OnInit {
 	
 	addCar(car, e) {
 		e.preventDefault();
-		
+		console.log(car)
 		this.dataService.addCar(car.name);
 		car.name = '';
 	}
