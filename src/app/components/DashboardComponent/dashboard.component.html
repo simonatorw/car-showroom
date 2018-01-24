@@ -1,7 +1,5 @@
 <h2>{{title}}</h2>
 <h3>{{subtitle}}</h3>
 <ul class="shelf">
-	<li *ngFor="let car of list" class="showcase">
-		{{car.name}}
-	</li>
+	<li *ngFor="let car of list; let i = index" class="showcase" [ngClass]="{ hide: i > 2 }">{{car.name}}</li>
 </ul>

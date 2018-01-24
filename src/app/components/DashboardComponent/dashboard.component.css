@@ -13,3 +13,6 @@
 	vertical-align: top;
 	text-align: center;
 }
+.hide {
+	display: none;
+}
