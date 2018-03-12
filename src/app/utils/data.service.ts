@@ -42,8 +42,10 @@ export class DataService {
 			id,
 			name
 		}).subscribe(data => {
-			this.addId(data._id);
-			console.log(data);
+			if (data && data._id) {
+				this.addId(data._id);
+				console.log(data);
+			}
 		});
 	}
 	deleteXhrCar(id) {
